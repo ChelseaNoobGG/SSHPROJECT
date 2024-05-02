@@ -1,0 +1,88 @@
+fieldset{
+    width:35%;
+    margin-left: 400px;
+}
+
+
+
+legend{
+    
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+h1, p{
+    margin-left: 400px;
+}
+
+p{
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: bold;
+}
+
+label{
+    display: block;
+    padding:10px;
+}
+
+input[type="text"], input[type="password"], input[type="submit"]{
+    padding:8px;
+    width: 90%;
+    margin-left: 10px;
+}
+
+input[type="submit"]{
+    width: 94%;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+label{
+    font-weight: bold;
+}
+
+input{
+    padding: 10px;
+}
+fieldset {
+    width: 35%;
+    margin-left: 400px;
+    background: linear-gradient(to bottom, #f0f8ff, #b0e0e6); /* ไล่สีจาก Alice Blue ไปยัง Powder Blue */
+}
+body {
+    background-color: #a8aaac98; /* สีอ่อน เช่น Alice Blue */
+    /* หรือ */
+    /* การไล่สี */
+    /* background: linear-gradient(to bottom, #f0f8ff, #b0e0e6); */
+    /* หรือ */
+    /* ภาพพื้นหลัง */
+    /* background-image: url('path/to/image.jpg'); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
+}
+input[type="submit"] {
+    width: 94%;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #4CAF50; /* สีของปุ่ม */
+    color: white; /* สีข้อความในปุ่ม */
+    border: none; /* ไม่มีเส้นขอบ */
+    border-radius: 5px; /* ปุ่มมุมโค้ง */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* เพิ่มเงา */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็นรูปมือเมื่ออยู่บนปุ่ม */
+    transition: box-shadow 0.3s ease; /* เพิ่มการเปลี่ยนแปลงเรียบใน 0.3 วินาที */
+}
+fieldset {
+    width: 35%;
+    margin: 70px auto; /* จัดให้อยู่ตรงกลางในแนวนอน */
+    padding: 20px; /* เพิ่มระยะห่างภายในกล่อง */
+    background: linear-gradient(to bottom, #f0f8ff, #b0e0e6); /* ไล่สีจาก Alice Blue ไปยัง Powder Blue */
+    border-radius: 10px; /* ทำให้ขอบของ fieldset มีมุมโค้ง */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* เพิ่มเงาเบา ๆ */
+}

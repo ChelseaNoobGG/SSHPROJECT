@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Registration">
+    <meta name="keyword" content="Form, Registration, Kabbee">
+    <meta name="author" content="Arkan Tsegai">
+    <title>โปรเจคอ.วินงับ</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <h1></h1>
+    <form id="loginForm" onsubmit="return checkSSHConnection();">
+        <p> </p>        
+        <fieldset>
+            <legend>ล็อคอิน:</legend>
+            <label>Hostname/โฮสต์:</label>
+            <input type="text" id="hostname" placeholder="Enter hostname" required>
+            <label>Port/พอร์ท:</label>
+            <input type="text" id="port" placeholder="Enter port" required>
+            <!-- System username input field -->
+            <label for="systemUsername">Username/ชื่อผู้ใช้งานของระบบ:</label>
+            <input type="text" id="systemUsername" placeholder="System username" readonly>
+            <label>Password/รหัสผ่าน:</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+
+            <!-- Checkbox for using system username -->
+            <label for="useSystemUsername">ต้องการใช้userเครื่อง</label> <input type="checkbox" id="useSystemUsername" onchange="toggleSystemUsernameInput()">
+           
+            
+            
+            
+            <input type="submit" value="เข้าใช้งาน">
+        </fieldset>
+    </form>
+
+    <script>
+        // Function to toggle system username input field based on checkbox state
+        function toggleSystemUsernameInput() {
+            var systemUsernameInput = document.getElementById("systemUsername");
+            var useSystemUsernameCheckbox = document.getElementById("useSystemUsername");
+
+            if (useSystemUsernameCheckbox.checked) {
+                systemUsernameInput.readOnly = true;
+                systemUsernameInput.value = getUserSystemUsername();
+            } else {
+                systemUsernameInput.readOnly = false;
+                systemUsernameInput.value = '';
+            }
+        }
+
+        // Get system username and fill the input field initially
+        document.getElementById("systemUsername").value = getUserSystemUsername();
+
+        function checkSSHConnection() {
+            var hostname = document.getElementById("hostname").value;
+            var port = document.getElementById("port").value;
+            var username = ''; // Default value
+            var password = document.getElementById("password").value;
+
+            // Get username based on user selection
+            var useSystemUsernameCheckbox = document.getElementById("useSystemUsername");
+            if (useSystemUsernameCheckbox.checked) {
+                username = document.getElementById("systemUsername").value;
+            } else {
+                username = document.getElementById("username").value;
+            }
+            
+            // Check if all fields are filled
+            if (hostname.trim() === '' || port.trim() === '' || username.trim() === '' || password.trim() === '') {
+                alert('โปรดกรอกข้อมูลให้ครบทุกช่อง');
+                return false;
+            }
+            
+            // Perform SSH data validation here
+            // Check if hostname and port are valid
+            if (!isValidHostname(hostname) || !isValidPort(port)) {
+                alert('โปรดกรอกข้อมูลโฮสต์และพอร์ตให้ถูกต้อง');
+                return false;
+            }
+            
+            // Check SSH connection
+            var xhr = new XMLHttpRequest();
+            var url = "check_ssh_connection.php"; // URL to the server-side script for checking SSH connection
+            var params = "hostname=" + hostname + "&port=" + port + "&username=" + username + "&password=" + password;
+            
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        if (response === "success") {
+                            alert("เชื่อมต่อสำเร็จ. เราจะพาคุณไปหน้าถัดไป...");
+                            window.location.href = "next_page.html"; // Redirect to the next page
+                        } else {
+                            alert("เชื่อมต่อไม่สำเร็จ เพราะข้อมูลไม่ครบ/ไม่ถูกต้องครับ.");
+                        }
+                    } else {
+                        alert("เชื่อมต่อไปยังเซิร์ฟเวอร์ไม่ได้.");
+                    }
+                }
+            };
+            
+            xhr.send(params);
+            
+            return false; // Prevent form submission
+        }
+        
+        // Function to get system username
+        function getUserSystemUsername() {
+            // Here you can use any method to get the system username
+            // For security reasons, JavaScript running in a browser typically can't directly access system information
+            // You may need to use server-side code (e.g., PHP) to get this information securely
+            // For demonstration, we'll return a placeholder value
+            return "system_username_placeholder";
+        }
+        
+        // Function to check if the hostname is valid
+        function isValidHostname(hostname) {
+            // You can implement your own validation logic here
+            // For simplicity, we'll just check if the hostname is not empty
+            return hostname.trim() !== '';
+        }
+        
+        // Function to check if the port is valid
+        function isValidPort(port) {
+            // You can implement your own validation logic here
+            // For simplicity, we'll just check if the port is a number
+            return !isNaN(port);
+        }
+    </script>
+</body>
+</html>

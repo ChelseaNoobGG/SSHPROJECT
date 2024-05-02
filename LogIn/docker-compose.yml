@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:80"  # แมพพอร์ต 80 ของคอนเทนเนอร์ maildev ไปยังพอร์ต 1080 ของโฮสต์เครื่อง
